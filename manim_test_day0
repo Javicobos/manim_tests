@@ -1,0 +1,35 @@
+%%manim -qm -v WARNING WriteStuff
+class WriteStuff(Scene):
+    def construct(self):
+        example_text = Text("javicobos gaming", gradient=(RED, PINK, BLUE))
+        #example_text = Tex("This is a some text", tex_to_color_map={"text": YELLOW})
+        example_tex = MathTex(
+            "\\sum_{k=1}^\\infty {1 \\over k^2} = {\\pi^2 \\over 6}", tex_to_color_map={"\\pi^2 \\over 6": YELLOW}
+        )
+        my_Latex = Tex("\LaTeX", font_size=106)
+        my_textMark = MarkupText("bottom")
+        my_textttt = Text("text")
+        
+        my_text = VGroup(my_textMark, my_textttt)
+        my_text.arrange(RIGHT)
+        
+        group = VGroup(example_text, example_tex, my_text)
+        group.arrange(DOWN)
+        group.width = config["frame_width"] - 2 * LARGE_BUFF
+        group.height = config["frame_height"] - 2 * LARGE_BUFF
+
+        manim_love = Text("manim is so cool", gradient=(RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE), font_size=96)
+        manim_love.move_to(example_text)
+        
+        my_Latex.move_to(my_textttt)
+        
+        self.play(Write(example_text))
+        self.play(Write(example_tex))
+        #self.play(Write(my_textMark))
+        #self.play(Write(my_textttt))
+        self.play(Write(my_text))
+        self.play(Unwrite(my_textttt))
+        self.play(Write(my_Latex))
+        self.wait(0.3)
+        self.play(Transform(example_text, manim_love))
+        self.wait(2)
